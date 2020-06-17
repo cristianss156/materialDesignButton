@@ -1,0 +1,6 @@
+#submit{display:none;}
+#submit label{float:left; margin-left:450px; margin-top:30px;}
+#contenedor{float:left; background-color:#3F51B5; width:100px; height:40px; border-radius:3px; transition-duration:0.25s;}
+#contenedor:hover{box-shadow:0px 5px 10px 0px rgba(0,0,0,0.26);}
+#contenedor span{z-index:2; position:absolute; float:left; font-family:sans-serif; color:white; font-size:20px; margin-top:8px; margin-left:20px;}
+#myCanvas{z-index:1; float:left; border-radius:2px;}
