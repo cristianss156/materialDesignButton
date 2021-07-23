@@ -1,40 +1,55 @@
-var posX;
-var posY;
-var canvas;
-var context;
-var intervalo;
+$(() => {
 
-$(function(){
-	$("#contenedor").mousedown(function(e){
-		var pos=$(this).offset();
-		 posX=(e.pageX-pos.left);
-		 posY=(e.pageY-pos.top);
+	let intervalo, posX, posY;
 
-		 canvas = document.getElementById("myCanvas");
-		 context = canvas.getContext("2d");
-		 var radius = 0;
+	let canvas = document.getElementById("myCanvas");
+	let context = canvas.getContext("2d");
+	let radius = 0;
+	let clicks = 0;
 
-		 intervalo=setInterval(function touch(){
+	$("#myCanvas").click((_e) => {
 
-		 context.clearRect(0, 0, canvas.width, canvas.height);
+		if (clicks < 1) {
+			clicks++
+			_e.stopPropagation();
+			const pos = {
+				left: _e.offsetX,
+				top: _e.offsetY
+			};
+			posX = pos.left;
+			posY = pos.top;
 
-		var centerX = posX;
-		var centerY =posY;
+			intervalo = setInterval(() => {
 
-		radius=radius>=120?0:radius+1;
+				context.clearRect(0, 0, canvas.width, canvas.height);
 
-		context.beginPath();
-		context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-		context.fillStyle = "rgba(0,0,0,0.2)";
-		context.fill();
-		if(radius==120){
-			clearInterval(intervalo);
+				radius++;
+
+				context.beginPath();
+				context.arc(posX, posY, radius, 0, 2 * Math.PI, false);
+				context.fillStyle = "rgba(255,255,255,0.2)";
+				context.fill();
+				if (radius == 120) {
+					clearInterval(intervalo);
+					context.clearRect(0, 0, canvas.width, canvas.height);
+					radius = 0;
+					clicks = 0;
+				}
+
+			}, 1 / 500);
+
+			intervalo;
 		}
-	},1/500);
-		 intervalo;
+
 	});
-	$("#contenedor").mouseout(function(){
+
+	$("#myCanvas").mouseout(function () {
+
 		clearInterval(intervalo);
 		context.clearRect(0, 0, canvas.width, canvas.height);
+		radius = 0;
+		clicks = 0;
+
 	});
+
 });
