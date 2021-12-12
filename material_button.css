@@ -1,11 +1,16 @@
+:root {
+    --primary-color: #3F51B5;
+    --textColor: #fff;
+}
+
 #contenedor {
     cursor: pointer;
     float: left;
-    background-color: #3F51B5;
+    background-color: var(--primary-color);
     width: 100px;
     height: 40px;
     font-family: sans-serif;
-    color: white;
+    color: var(--textColor);
     border-radius: 4px;
     transition-duration: 0.25s;
 }
@@ -19,7 +24,7 @@
     position: absolute;
     float: left;
     font-family: sans-serif;
-    color: white;
+    color: var(--textColor);
     font-size: 20px;
     margin-top: 8px;
     margin-left: 20px;
