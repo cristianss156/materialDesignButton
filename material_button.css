@@ -3,9 +3,9 @@
     --textColor: #fff;
 }
 
-#contenedor {
+.contenedor {
     cursor: pointer;
-    float: left;
+    display: block;
     background-color: var(--primary-color);
     width: 100px;
     height: 40px;
@@ -15,11 +15,11 @@
     transition-duration: 0.25s;
 }
 
-#contenedor:hover {
+.contenedor:hover {
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.26);
 }
 
-#contenedor span {
+.contenedor span {
     z-index: 1;
     position: absolute;
     float: left;
@@ -30,7 +30,7 @@
     margin-left: 20px;
 }
 
-#myCanvas {
+.ripple {
     z-index: 2;
     position: absolute;
     float: left;

@@ -1,54 +1,63 @@
-$(() => {
+'use strict';
 
-	let intervalo, posX, posY;
+// MaterialButton elements
+const canvasElements = document.querySelectorAll(".ripple");
+let intervalo;
 
-	let canvas = document.getElementById("myCanvas");
-	let context = canvas.getContext("2d");
-	let radius = 0;
-	let clicks = 0;
+// MaterialButton click and mouseout events
+canvasElements.forEach((item) => {
 
-	$("#myCanvas").click((_e) => {
+	// MaterialButton click event
+	item.addEventListener("click", (_e) => {
 
-		if (clicks < 1) {
-			clicks++
-			_e.stopPropagation();
-			const pos = {
-				left: _e.offsetX,
-				top: _e.offsetY
-			};
-			posX = pos.left;
-			posY = pos.top;
-
-			intervalo = setInterval(() => {
-
-				context.clearRect(0, 0, canvas.width, canvas.height);
-
-				radius++;
-
-				context.beginPath();
-				context.arc(posX, posY, radius, 0, 2 * Math.PI, false);
-				context.fillStyle = "rgba(255,255,255,0.2)";
-				context.fill();
-				if (radius == 120) {
-					clearInterval(intervalo);
-					context.clearRect(0, 0, canvas.width, canvas.height);
-					radius = 0;
-					clicks = 0;
-				}
-
-			}, 1 / 500);
-
-			intervalo;
+		const context = item.getContext("2d");
+		if (intervalo) {
+			clearInterval(intervalo);
+			context.clearRect(0, 0, item.width, item.height);
+			intervalo = null;
 		}
+
+		_e.stopPropagation();
+		// Get the mouse position
+		const pos = {
+			left: _e.offsetX,
+			top: _e.offsetY
+		};
+
+		let posX = pos.left;
+		let posY = pos.top;
+
+		let radius = 0;
+		// Create a new circle ripple
+		intervalo = setInterval(() => {
+			// Clear the canvas
+			context.clearRect(0, 0, item.width, item.height);
+
+			radius++;
+			// Draw the circle
+			context.beginPath();
+			context.arc(posX, posY, radius, 0, 2 * Math.PI, false);
+			context.fillStyle = 'rgba(255,255,255,0.2)';
+			context.fill();
+			if (radius == 120) {
+				clearInterval(intervalo);
+				context.clearRect(0, 0, item.width, item.height);
+				radius = 0;
+			}
+
+		}, 1 / 500);
+
+		intervalo;
 
 	});
 
-	$("#myCanvas").mouseout(function () {
+	// MaterialButton mouseout event
+	item.addEventListener("mouseout", () => {
 
+		// Clear the canvas
 		clearInterval(intervalo);
-		context.clearRect(0, 0, canvas.width, canvas.height);
-		radius = 0;
-		clicks = 0;
+		const context = item.getContext("2d");
+		context.clearRect(0, 0, item.width, item.height);
 
 	});
 
